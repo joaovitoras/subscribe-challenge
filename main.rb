@@ -9,3 +9,21 @@ if ARGV.empty?
 end
 
 $LOAD_PATH.unshift("#{Dir.pwd}/lib")
+
+require 'shopping_basket'
+require 'product/parser'
+
+Dir.glob(ARGV).each do |filename|
+  products = []
+
+  File.foreach(filename) do |text|
+    parser = Product::Parser.new(text)
+    products << parser.product
+  end
+
+  shopping_basket = ShoppingBasket.new(products)
+
+  puts "Receipt for #{filename}:"
+  shopping_basket.print_receipt
+  puts '-----------------------------------'
+end
