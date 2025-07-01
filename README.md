@@ -6,7 +6,15 @@
 
 `ruby main.rb test-1.txt test-2.txt`
 
-If you want to validate output create a file with the same name at `outputs` folder and the content of the expected output.
+If you want to validate output create a file with the same name at `outputs` folder with the content of the expected output. Example:
+```
+| inputs
+|   test-1.txt
+|   test-2.txt
+| outputs
+|   test-1.txt
+|   test-2.txt
+```
 
 ### With your own ruby
 
