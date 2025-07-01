@@ -9,13 +9,11 @@ class Product
     end
 
     def product
-      return @product if defined?(@product)
-
       parsed = parse
 
       raise InvalidFormatError, 'Invalid format' unless parsed
 
-      @product = Product.new(
+      Product.new(
         quantity: parsed[:quantity].to_i,
         name: parsed[:name].strip,
         price: parsed[:price].to_f
@@ -25,7 +23,7 @@ class Product
     private
 
     def parse
-      @text.match(/^(?<quantity>\d+)\s(?<name>.+)\sat\s(?<price>[\d\.]+)$/)
+      @text.to_s.match(/^(?<quantity>\d+)\s(?<name>.+)\sat\s(?<price>[\d\.]+)$/)
     end
   end
 end

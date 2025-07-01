@@ -1,3 +1,6 @@
+plugins:
+  - rubocop-rspec
+
 AllCops:
   NewCops: enable
   SuggestExtensions: false
@@ -10,5 +13,8 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-RuboCopStyle/WordArray:
+Style/WordArray:
+  Enabled: false
+
+RSpec/MultipleExpectations:
   Enabled: false

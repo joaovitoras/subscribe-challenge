@@ -31,7 +31,7 @@ module Tax
     end
 
     def round_tax(tax)
-      ((tax / ROUND_STEP).ceil * ROUND_STEP)
+      (tax / ROUND_STEP).ceil * ROUND_STEP
     end
   end
 end

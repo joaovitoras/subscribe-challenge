@@ -8,6 +8,7 @@ class Product
 
     def initialize(product_name)
       @product_name = product_name
+      raise ArgumentError, 'Product name cannot be blank' if @product_name.nil? || @product_name.strip.empty?
     end
 
     def name
