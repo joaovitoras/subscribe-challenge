@@ -8,7 +8,7 @@ module Tax
       end
 
       def exempt?
-        !item.imported?
+        !product.imported?
       end
     end
   end

@@ -9,12 +9,12 @@ module Tax
     ].freeze
     ROUND_STEP = 0.05
 
-    def initialize(item)
-      @item = item
+    def initialize(product)
+      @product = product
     end
 
     def tax
-      round_tax(@item.price * tax_rate)
+      round_tax(@product.price * tax_rate)
     end
 
     private
@@ -23,7 +23,7 @@ module Tax
       tax_rate = 0.0
 
       TAXES.each do |rule_class|
-        rule = rule_class.new(@item)
+        rule = rule_class.new(@product)
         tax_rate += rule.rate unless rule.exempt?
       end
 

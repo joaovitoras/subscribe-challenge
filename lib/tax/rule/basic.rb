@@ -10,7 +10,7 @@ module Tax
       end
 
       def exempt?
-        EXEMPT_PRODUCT_CATEGORIES.include?(item.category)
+        EXEMPT_PRODUCT_CATEGORIES.include?(product.category)
       end
     end
   end

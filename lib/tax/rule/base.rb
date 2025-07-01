@@ -1,10 +1,10 @@
 module Tax
   module Rule
     class Base
-      attr_reader :item
+      attr_reader :product
 
-      def initialize(item)
-        @item = item
+      def initialize(product)
+        @product = product
       end
 
       def exempt?
