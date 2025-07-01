@@ -1,0 +1,14 @@
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
+  TargetRubyVersion: 3.4
+
+Style/Documentation:
+  Enabled: false
+
+# String literal is the default for ruby 3.4
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+RuboCopStyle/WordArray:
+  Enabled: false
