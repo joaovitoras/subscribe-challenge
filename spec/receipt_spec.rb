@@ -18,14 +18,14 @@ RSpec.describe Receipt do
     end
 
     it 'prints complete receipt' do # rubocop:todo RSpec/ExampleLength
-      expect { receipt.print }.to output(
-        <<~OUTPUT
+      expect(receipt.to_text).to eq(
+        <<~OUTPUT.strip
           1 book: 12.49
           1 music CD: 16.49
           Sales Taxes: 1.50
           Total: 28.98
         OUTPUT
-      ).to_stdout
+      )
     end
 
     context 'with multiple quantities' do
@@ -34,14 +34,14 @@ RSpec.describe Receipt do
       end
 
       it 'prints complete receipt' do # rubocop:todo RSpec/ExampleLength
-        expect { receipt.print }.to output(
-          <<~OUTPUT
+        expect(receipt.to_text).to eq(
+          <<~OUTPUT.strip
             2 book: 24.98
             1 music CD: 16.49
             Sales Taxes: 1.50
             Total: 41.47
           OUTPUT
-        ).to_stdout
+        )
       end
     end
 
@@ -49,12 +49,12 @@ RSpec.describe Receipt do
       let(:products) { [] }
 
       it 'prints zero totals' do # rubocop:disable RSpec/ExampleLength
-        expect { receipt.print }.to output(
-          <<~OUTPUT
+        expect(receipt.to_text).to eq(
+          <<~OUTPUT.strip
             Sales Taxes: 0.00
             Total: 0.00
           OUTPUT
-        ).to_stdout
+        )
       end
     end
 
@@ -62,13 +62,13 @@ RSpec.describe Receipt do
       let(:products) { [first_product] }
 
       it 'prints single product receipt' do # rubocop:todo RSpec/ExampleLength
-        expect { receipt.print }.to output(
-          <<~OUTPUT
+        expect(receipt.to_text).to eq(
+          <<~OUTPUT.strip
             1 book: 12.49
             Sales Taxes: 0.00
             Total: 12.49
           OUTPUT
-        ).to_stdout
+        )
       end
     end
   end
