@@ -2,18 +2,22 @@
 
 **Built with Ruby 3.4.2**
 
-## How to Use
+## Challenge validation
+To validate challenge inputs just run:
+```shell
+ruby main.rb inputs/*
+```
 
-`ruby main.rb test-1.txt test-2.txt`
+## How to Use
 
 If you want to validate output, create a file with the same name in the `outputs` folder with the content of the expected output. Example:
 ```
 | inputs
-|   test-1.txt
-|   test-2.txt
+|-- test-1.txt
+|-- test-2.txt
 | outputs
-|   test-1.txt
-|   test-2.txt
+|-- test-1.txt
+|-- test-2.txt
 ```
 
 ### With your own ruby
