@@ -8,7 +8,7 @@
 
 ```shell
 # Run the application
-ruby main.rb input/*
+ruby main.rb inputs/*
 
 # Running tests
 bundle install
