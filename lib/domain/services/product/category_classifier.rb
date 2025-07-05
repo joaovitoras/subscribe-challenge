@@ -8,14 +8,14 @@ module Domain
           'medical' => ['pill']
         }.freeze
 
-        def initialize(product_name)
-          @product_name = product_name
-          raise ArgumentError, 'Product name cannot be blank' if @product_name.nil? || @product_name.strip.empty?
+        def initialize(name)
+          @name = name
+          raise ArgumentError, 'Name cannot be blank' if @name.nil? || @name.strip.empty?
         end
 
         def name
           CATEGORIES.find do |_, keywords|
-            keywords.any? { |keyword| @product_name.downcase.include?(keyword) }
+            keywords.any? { |keyword| @name.downcase.include?(keyword) }
           end&.first || 'general'
         end
       end

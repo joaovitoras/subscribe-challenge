@@ -5,5 +5,13 @@ module Infrastructure
         block.call(file_path)
       end
     end
+
+    def self.read_file(file_path)
+      File.read(file_path)
+    end
+
+    def self.file_exists?(file_path)
+      File.exist?(file_path)
+    end
   end
 end

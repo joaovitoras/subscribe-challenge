@@ -1,4 +1,4 @@
-require 'product'
+require 'domain/entities/product'
 
 module Domain
   module Services
@@ -6,26 +6,22 @@ module Domain
       class Parser
         class InvalidFormatError < StandardError; end
 
-        def initialize(text)
-          @text = text
+        PRODUCT_PATTERN = /^(?<quantity>\d+)\s(?<name>.+)\sat\s(?<price>[\d\.]+)$/
+
+        def parse_text_input(text_content)
+          text_content.split("\n").map { |line| parse(line) if line.strip != '' }.compact
         end
 
-        def product
-          parsed = parse
+        def parse(text)
+          match = text.match(PRODUCT_PATTERN)
 
-          raise InvalidFormatError, 'Invalid format' unless parsed
+          raise InvalidFormatError, "Invalid format: #{text}" unless match
 
-          Product.new(
-            quantity: parsed[:quantity].to_i,
-            name: parsed[:name].strip,
-            price: parsed[:price].to_f
+          Domain::Entities::Product.new(
+            quantity: match[:quantity].to_i,
+            name: match[:name].strip,
+            price: match[:price].to_f
           )
-        end
-
-        private
-
-        def parse
-          @text.to_s.match(/^(?<quantity>\d+)\s(?<name>.+)\sat\s(?<price>[\d\.]+)$/)
         end
       end
     end

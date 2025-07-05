@@ -1,33 +1,16 @@
-require 'tax/calculator'
-require 'product/category'
+require 'domain/services/tax_calculator'
+require 'domain/services/product/category_classifier'
 
 module Domain
   module Entities
     class Product
-      attr_reader :quantity, :name, :price
+      attr_reader :quantity, :name, :price, :category
 
       def initialize(quantity:, name:, price:)
         @quantity = quantity
         @name = name
         @price = price
-        @tax_calculator = Tax::Calculator.new(self)
-        @category = Category.new(name)
-      end
-
-      def total_price_with_tax
-        (price + tax) * quantity
-      end
-
-      def tax
-        @tax_calculator.tax
-      end
-
-      def sale_tax
-        tax * quantity
-      end
-
-      def category
-        @category.name
+        @category = Domain::Services::Product::CategoryClassifier.new(name).name
       end
 
       def imported?

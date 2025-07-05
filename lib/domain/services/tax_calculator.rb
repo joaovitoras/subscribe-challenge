@@ -1,38 +1,37 @@
-require 'domain/services/tax_strategies/basic_tax'
+require 'domain/services/tax_strategies/basic_sales_tax'
 require 'domain/services/tax_strategies/import_duty_tax'
 
 module Domain
   module Services
     class TaxCalculator
-      TAXES = [
-        TaxStrategies::BasicTax,
+      DEFAULT_STRATEGIES = [
+        TaxStrategies::BasicSalesTax,
         TaxStrategies::ImportDutyTax
       ].freeze
-      ROUND_STEP = 0.05
 
-      def initialize(product)
-        @product = product
+      def initialize(strategies: DEFAULT_STRATEGIES)
+        @strategies = strategies
       end
 
-      def tax
-        round_tax(@product.price * tax_rate)
-      end
+      def calculate_tax_for_product(product)
+        total_tax = 0.0
 
-      private
-
-      def tax_rate
-        tax_rate = 0.0
-
-        TAXES.each do |rule_class|
-          rule = rule_class.new(@product)
-          tax_rate += rule.rate unless rule.exempt?
+        @strategies.each do |strategy_class|
+          strategy = strategy_class.new(product)
+          total_tax += strategy.calculate_tax
         end
 
-        tax_rate
+        total_tax
       end
 
-      def round_tax(tax)
-        (tax / ROUND_STEP).ceil * ROUND_STEP
+      def calculate_total_tax_for_basket(basket)
+        total_tax = 0.0
+
+        basket.products.each do |product|
+          total_tax += calculate_tax_for_product(product) * product.quantity
+        end
+
+        total_tax
       end
     end
   end

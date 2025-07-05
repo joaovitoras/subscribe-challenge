@@ -28,7 +28,7 @@ class TaxCalculatorApp
     puts result[:receipt]
     puts MESSAGES[result[:validation][:status]]
   rescue StandardError => e
-    puts "Error processing #{filepath}: #{e.message}#{e.backtrace.join("\n")}"
+    puts "Error processing #{file_path}: #{e.message}\n#{e.backtrace.join("\n")}"
   ensure
     puts '-----------------------------------'
   end
