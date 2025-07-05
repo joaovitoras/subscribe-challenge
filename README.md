@@ -43,6 +43,8 @@ docker run --rm -v $(PWD)/.:/home/challenge/app tax-calculator bundle exec rspec
 
 # What I would do different If I had more time
 
+EDITED: I have opened a pull request with these changes. You can check it here https://github.com/joaovitoras/subscribe-challenge/pull/1
+
 I spent 4 hours resolving the challenge to finish what is requested.
 With more time, I know that I could improve a lot of things focusing on:
 * Responsibility segregation
