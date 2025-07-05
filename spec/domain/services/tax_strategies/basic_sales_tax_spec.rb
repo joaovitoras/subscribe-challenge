@@ -1,13 +1,13 @@
-require 'tax/rule/basic'
-require 'product'
+require 'domain/services/tax_strategies/basic_sales_tax'
+require 'domain/entities/product'
 
-RSpec.describe Tax::Rule::Basic do
-  let(:product) { instance_double(Product) }
+RSpec.describe Domain::Services::TaxStrategies::BasicSalesTax do
+  let(:product) { instance_double(Domain::Entities::Product) }
   let(:rule) { described_class.new(product) }
 
-  describe '#rate' do
+  describe '#tax_rate' do
     it 'returns 0.1 (10%)' do
-      expect(rule.rate).to eq(0.1)
+      expect(rule.send(:tax_rate)).to eq(0.1)
     end
   end
 
@@ -18,7 +18,7 @@ RSpec.describe Tax::Rule::Basic do
       end
 
       it 'returns true' do
-        expect(rule.exempt?).to be true
+        expect(rule.send(:exempt?)).to be true
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe Tax::Rule::Basic do
       end
 
       it 'returns false' do
-        expect(rule.exempt?).to be false
+        expect(rule.send(:exempt?)).to be false
       end
     end
   end
