@@ -1,19 +1,19 @@
-require 'tax/rule/import_duty'
-require 'product'
+require 'domain/services/tax_strategies/import_duty_tax'
+require 'domain/entities/product'
 
-RSpec.describe Tax::Rule::ImportDuty do
-  let(:product) { instance_double(Product) }
+RSpec.describe Domain::Services::TaxStrategies::ImportDutyTax do
+  let(:product) { instance_double(Domain::Entities::Product) }
   let(:rule) { described_class.new(product) }
 
-  describe '#rate' do
+  describe '#tax_rate' do
     it 'returns 0.05 (5%)' do
-      expect(rule.rate).to eq(0.05)
+      expect(rule.send(:tax_rate)).to eq(0.05)
     end
 
     it 'always returns the same rate regardless of product' do
-      different_product = instance_double(Product)
+      different_product = instance_double(Domain::Entities::Product)
       different_rule = described_class.new(different_product)
-      expect(different_rule.rate).to eq(0.05)
+      expect(different_rule.send(:tax_rate)).to eq(0.05)
     end
   end
 
@@ -26,7 +26,7 @@ RSpec.describe Tax::Rule::ImportDuty do
       let(:imported) { true }
 
       it 'returns false' do
-        expect(rule.exempt?).to be false
+        expect(rule.send(:exempt?)).to be false
       end
     end
 
@@ -34,7 +34,7 @@ RSpec.describe Tax::Rule::ImportDuty do
       let(:imported) { false }
 
       it 'returns true' do
-        expect(rule.exempt?).to be true
+        expect(rule.send(:exempt?)).to be true
       end
     end
   end

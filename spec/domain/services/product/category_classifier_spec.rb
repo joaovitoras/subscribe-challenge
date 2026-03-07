@@ -1,6 +1,6 @@
-require 'product/category'
+require 'domain/services/product/category_classifier'
 
-RSpec.describe Product::Category do
+RSpec.describe Domain::Services::Product::CategoryClassifier do
   let(:category) { described_class.new(product_name) }
 
   describe '#initialize' do
@@ -11,7 +11,7 @@ RSpec.describe Product::Category do
     describe 'when product name is nil' do
       let(:product_name) { nil }
 
-      it { expect { category }.to raise_error(ArgumentError, 'Product name cannot be blank') }
+      it { expect { category }.to raise_error(ArgumentError, 'Name cannot be blank') }
     end
   end
 

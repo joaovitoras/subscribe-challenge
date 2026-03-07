@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 plugins:
   - rubocop-rspec
 
@@ -5,6 +7,16 @@ AllCops:
   NewCops: enable
   SuggestExtensions: false
   TargetRubyVersion: 3.4
+
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/LineLength:
+  Max: 112
+
+Layout/MultilineHashKeyLineBreaks:
+  Enabled: true
 
 Style/Documentation:
   Enabled: false
@@ -18,3 +30,10 @@ Style/WordArray:
 
 RSpec/MultipleExpectations:
   Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: true
+  Max: 4
+
+RSpec/ExampleLength:
+  Max: 10

@@ -1,11 +1,11 @@
-require 'tax/calculator'
-require 'product'
+require 'domain/services/tax_calculator'
+require 'domain/entities/product'
 
-RSpec.describe Tax::Calculator do
-  let(:product) { instance_double(Product) }
-  let(:calculator) { described_class.new(product) }
+RSpec.describe Domain::Services::TaxCalculator do
+  let(:product) { instance_double(Domain::Entities::Product) }
+  let(:calculator) { described_class.new }
 
-  describe '#tax' do
+  describe '#calculate_tax_for_product' do
     before do
       allow(product).to receive_messages(price: price, category: category, imported?: imported)
     end
@@ -16,7 +16,7 @@ RSpec.describe Tax::Calculator do
       let(:imported) { false }
 
       it 'returns 0 tax' do
-        expect(calculator.tax).to eq(0.0)
+        expect(calculator.calculate_tax_for_product(product)).to eq(0.0)
       end
     end
 
@@ -27,7 +27,7 @@ RSpec.describe Tax::Calculator do
 
       it 'applies basic tax only' do
         # 14.99 * 0.1 = 1.499, rounded to 1.50
-        expect(calculator.tax).to eq(1.50)
+        expect(calculator.calculate_tax_for_product(product)).to eq(1.50)
       end
     end
 
@@ -38,7 +38,7 @@ RSpec.describe Tax::Calculator do
 
       it 'applies import duty only' do
         # 11.25 * 0.05 = 0.5625, rounded to 0.60
-        expect(calculator.tax).to be_within(0.01).of(0.60)
+        expect(calculator.calculate_tax_for_product(product)).to be_within(0.01).of(0.60)
       end
     end
 
@@ -49,7 +49,7 @@ RSpec.describe Tax::Calculator do
 
       it 'applies both basic tax and import duty' do
         # 47.50 * 0.15 = 7.125, rounded to 7.15
-        expect(calculator.tax).to eq(7.15)
+        expect(calculator.calculate_tax_for_product(product)).to eq(7.15)
       end
     end
 
@@ -60,7 +60,7 @@ RSpec.describe Tax::Calculator do
 
       it 'rounds up correctly' do
         # 0.85 * 0.1 = 0.085, rounded to 0.10
-        expect(calculator.tax).to eq(0.10)
+        expect(calculator.calculate_tax_for_product(product)).to eq(0.10)
       end
     end
 
@@ -71,7 +71,7 @@ RSpec.describe Tax::Calculator do
 
       it 'returns exact amount' do
         # 1.00 * 0.1 = 0.10, already at 0.05 boundary
-        expect(calculator.tax).to eq(0.10)
+        expect(calculator.calculate_tax_for_product(product)).to eq(0.10)
       end
     end
 
@@ -82,7 +82,7 @@ RSpec.describe Tax::Calculator do
 
       it 'returns exact amount' do
         # 0.50 * 0.1 = 0.05, exactly at boundary
-        expect(calculator.tax).to eq(0.05)
+        expect(calculator.calculate_tax_for_product(product)).to eq(0.05)
       end
     end
   end
